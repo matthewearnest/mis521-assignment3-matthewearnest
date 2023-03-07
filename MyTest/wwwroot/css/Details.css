@@ -1,0 +1,26 @@
+﻿body {
+}
+
+#TweetHeader {
+    background-color: #f5f8fa;
+    border-bottom: 1px solid #e6ecf0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#info {
+}
+
+.table {
+    background-color: #f5f8fa;
+    border-bottom: 1px solid #e6ecf0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.row {
+    background-color: #f5f8fa;
+    border-bottom: 1px solid #e6ecf0;
+    padding: 10px;
+    margin-bottom: 10px;
+}

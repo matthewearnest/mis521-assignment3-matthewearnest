@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MyTest.Models.MoviesActors>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/Details.css" asp-append-version="true" />
+<script src="~/js/site.js"></script>
+
+<h1>List of Actors in Movies</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Movie)
+            </th>
+            <th>
+                Lead Actor
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Movie.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Actor.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MoviesActorsId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MoviesActorsId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MoviesActorsId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

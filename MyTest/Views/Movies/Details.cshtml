@@ -1,0 +1,102 @@
+﻿@model MyTest.Models.MovieDetailManager
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="~/css/Details.css" asp-append-version="true" />
+<script src="~/js/site.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css" integrity="sha384-OxTGV/M4GzJvCUW7meYLdfInJ4DDurhW1SF1z3zPAktNd/jnyiWvXB/SMLBCY1l7" crossorigin="anonymous">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css" integrity="sha384-s5lqL1NMu1TdDS/75EsR2IKqj5g2SbplE63nRqwT70/kcm2uFLqKGOCp1phJ2ENd" crossorigin="anonymous">
+
+<h1>Movie Details/Tweets</h1>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Title
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.movie.Title)
+        </dd>
+        <dt class="col-sm-2">
+            IMBD Link
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.movie.IMBDLink)
+        </dd>
+        <dt class="col-sm-2">
+            Genre
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.movie.Genre)
+        </dd>
+        <dt class="col-sm-2">
+            Release Year
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.movie.ReleaseYear)
+        </dd>
+        <dt class="col-sm-2">
+            Poster
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.movie.MoviePoster != null)
+            {
+                <img width="100" height="100" src="@Url.Action("GetMoviePoster", "Movies", new {Model.movie.Id})" />
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.movie.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<div id="TweetHeader">
+    Average Tweet Sentiment:
+    @if (Model.AverageTweetSentiment() != 0)
+    {
+        <span>@string.Format("{0:n2}", Math.Abs(Model.AverageTweetSentiment()) * 100)%</span>
+    }
+
+    @if (Model.AverageTweetSentiment() > 0)
+    {
+        <span>Positive</span>
+    }
+    else if (Model.AverageTweetSentiment() < 0)
+    {
+        <span>Negative</span>
+    }
+    else
+    {
+        <span>Neutral</span>
+    }
+</div>
+<table class="table" id="table">
+    <thead>
+        <tr>
+            <th>
+                Sentiment
+            </th>
+            <th>
+                Tweet
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tweet in Model.Tweets)
+        {
+            <tr>
+                <td>
+                    @tweet.Sentiment
+                </td>
+                <td>
+                    @tweet.TweetText
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

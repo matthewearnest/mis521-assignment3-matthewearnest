@@ -1,0 +1,67 @@
+﻿@model IEnumerable<MyTest.Models.Actors>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>List of Actors</h1>
+<link rel="stylesheet" href="~/css/Details.css" asp-append-version="true" />
+<script src="~/js/site.js"></script>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                IMDB Link
+            </th>
+            <th>
+                Photo
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IMBDLink)
+                </td>
+                <td>
+                    @if (item.ActorPhoto != null)
+                    {
+                        <img width="100" height="100" src="@Url.Action("GetActorPhoto", "Actors", new {item.Id})" />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
